@@ -40,6 +40,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid #78a1ff; outline-offs
 .button { min-height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 0 22px; background: var(--blue); color: white; text-decoration: none; font-size: 13px; font-weight: 700; border: 1px solid var(--blue); transition: background .2s ease, color .2s ease, transform .2s ease; }
 .button:hover { background: var(--blue-bright); border-color: var(--blue-bright); transform: translateY(-2px); }
 .button span { font-size: 17px; }
+.arrow { flex: 0 0 auto; width: 1em; height: 1em; font-size: 16px; display: inline-block; background: currentColor; transition: translate .2s ease; -webkit-mask: var(--arrow-icon) center / contain no-repeat; mask: var(--arrow-icon) center / contain no-repeat; --arrow-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E"); }
+.arrow-down { --arrow-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14m-6-6 6 6 6-6'/%3E%3C/svg%3E"); }
+.arrow-up { --arrow-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 19V5m-6 6 6-6 6 6'/%3E%3C/svg%3E"); }
+a:hover > .arrow:not(.arrow-down):not(.arrow-up) { translate: 2px -2px; }
+a:hover > .arrow-down { translate: 0 2px; }
+a:hover > .arrow-up { translate: 0 -2px; }
+.footer-cta, .back-top { display: inline-flex; align-items: center; gap: 8px; }
+.footnote-mark { width: 5px; height: 5px; display: inline-block; margin-right: 10px; background: var(--blue); transform: rotate(45deg); vertical-align: middle; }
 .button-small { min-height: 42px; padding: 0 15px; gap: 14px; font-size: 11px; }
 .button-outline { border-color: rgba(255,255,255,.48); background: transparent; }
 .button-outline:hover { background: white; color: var(--navy); border-color: white; }
@@ -59,8 +67,7 @@ h1 em, h2 em { color: #85a6ff; font-style: normal; }
 .hero-actions { display: flex; align-items: center; gap: 28px; }
 .button-blue { background: var(--blue); border-color: #4671df; }
 .text-link { display: inline-flex; align-items: center; gap: 17px; color: var(--blue); text-decoration: none; font-size: 13px; font-weight: 700; }
-.text-link span { font-size: 18px; transition: transform .2s ease; }
-.text-link:hover span { transform: translate(3px, -2px); }
+.text-link .arrow { font-size: 18px; }
 .text-link-light { color: white; }
 .hero-index { position: absolute; z-index: 1; right: 4.2%; bottom: 56px; display: flex; align-items: center; gap: 14px; color: rgba(255,255,255,.77); font-size: 9px; letter-spacing: .18em; }
 .hero-index span { color: white; font: 700 18px var(--display); }
@@ -73,7 +80,9 @@ h1 em, h2 em { color: #85a6ff; font-style: normal; }
 .specialties-list { display: flex; align-items: center; justify-content: center; gap: clamp(14px, 2.4vw, 34px); }
 .specialties-list span { white-space: nowrap; font: 700 13px var(--display); }
 .specialties-list i { width: 5px; height: 5px; background: var(--blue); transform: rotate(45deg); }
-.specialties-arrow { color: var(--blue); font-size: 23px; text-decoration: none; }
+.specialties-arrow { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); color: var(--blue); text-decoration: none; transition: background .2s ease, color .2s ease; }
+.specialties-arrow:hover { background: var(--blue); color: white; }
+.specialties-arrow .arrow { font-size: 18px; }
 
 .section-pad { padding: 112px 0; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 53px; }
@@ -182,7 +191,8 @@ h1 em, h2 em { color: #85a6ff; font-style: normal; }
 .footer-bottom a { color: rgba(255,255,255,.74); text-decoration: none; }
 
 .whatsapp-float { position: fixed; z-index: 15; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 0; text-decoration: none; color: white; animation: float-in .6s .8s both cubic-bezier(.2,.8,.2,1); }
-.whatsapp-float-icon { position: relative; width: 60px; height: 60px; display: grid; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 8px 22px rgba(6,19,47,.32); transition: transform .25s ease, background .25s ease; }
+.whatsapp-float-icon { position: relative; isolation: isolate; width: 60px; height: 60px; display: grid; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 8px 22px rgba(6,19,47,.32); transition: transform .25s ease, background .25s ease; }
+.whatsapp-float-icon svg { display: block; position: relative; z-index: 1; }
 .whatsapp-float-icon::before { position: absolute; inset: 0; content: ""; border-radius: 50%; background: #25d366; z-index: -1; animation: whatsapp-pulse 2.4s ease-out infinite; }
 .whatsapp-float-label { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; padding: 0; margin-right: -30px; height: 42px; display: flex; align-items: center; background: var(--navy); font: 700 12px var(--display); letter-spacing: .03em; border-radius: 21px 0 0 21px; transition: max-width .3s ease, opacity .25s ease, padding .3s ease; }
 .whatsapp-float:hover .whatsapp-float-label, .whatsapp-float:focus-visible .whatsapp-float-label { max-width: 160px; opacity: 1; padding: 0 42px 0 18px; }
@@ -246,7 +256,7 @@ h1 em, h2 em { color: #85a6ff; font-style: normal; }
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 19px; }
   .hero-index { display: none; }
   .hero-caption { order: 3; position: static; padding: 12px 20px; max-width: none; font-size: 8px; }
-  .specialties { min-height: 0; padding: 22px 20px; display: grid; grid-template-columns: 1fr 24px; gap: 16px; }
+  .specialties { min-height: 0; padding: 22px 20px; display: grid; grid-template-columns: 1fr 40px; gap: 16px; }
   .specialties-label { grid-column: 1; }
   .specialties-list { grid-column: 1 / -1; justify-content: flex-start; flex-wrap: wrap; row-gap: 13px; }
   .specialties-list span { font-size: 12px; }

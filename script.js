@@ -1,7 +1,7 @@
 // Centralize the company's real, editable contact details here.
 const company = {
-  whatsapp: "21970465929", // Add the official number with country code and area code, digits only.
-  phone: "",
+  whatsapp: "5521970465929", // Country code + area code + number, digits only.
+  phone: "(21) 97046-5929",
   address: "Av. Nilo Peçanha, 1385 - Centro, Nova Iguaçu - RJ, 26215-512",
   hours: "Segunda a Sexta, 08:00 - 18:00 | Sábado, 08:00 - 13:00",
   instagram: "@lannassom",
