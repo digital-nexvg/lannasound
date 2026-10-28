@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
@@ -91,16 +91,16 @@
           </div>
           <div class="services-list" role="list">
             <article class="service-row" role="listitem">
-              <span class="service-number">01</span><div><h3>Som e tecnologia</h3><p>Instalação de som automotivo e central multimídia para renovar sua experiência a bordo.</p><span class="service-tags">Som automotivo · Central multimídia</span></div><a href="#contato" class="service-action" data-service="som automotivo e central multimídia" aria-label="Consultar sobre som automotivo e central multimídia"><span class="arrow" aria-hidden="true"></span></a>
+              <span class="service-number">01</span><div><h3>Som e tecnologia</h3><p>Instalação de som automotivo e central multimídia para renovar sua experiência a bordo.</p><span class="service-tags">Som automotivo · Central multimídia</span></div><a href="#contato" class="service-action" data-gallery="som" data-service="som automotivo e central multimídia" aria-label="Consultar sobre som automotivo e central multimídia"><span class="arrow" aria-hidden="true"></span></a>
             </article>
             <article class="service-row" role="listitem">
-              <span class="service-number">02</span><div><h3>Segurança e acessórios</h3><p>Mais praticidade no uso do veículo com acessórios instalados conforme a necessidade.</p><span class="service-tags">Alarmes · Travas elétricas · Engates · Capotas</span></div><a href="#contato" class="service-action" data-service="alarmes, travas elétricas, engates ou capotas" aria-label="Consultar sobre segurança e acessórios"><span class="arrow" aria-hidden="true"></span></a>
+              <span class="service-number">02</span><div><h3>Segurança e acessórios</h3><p>Mais praticidade no uso do veículo com acessórios instalados conforme a necessidade.</p><span class="service-tags">Alarmes · Travas elétricas · Engates · Capotas</span></div><a href="#contato" class="service-action" data-gallery="seguranca" data-service="alarmes, travas elétricas, engates ou capotas" aria-label="Consultar sobre segurança e acessórios"><span class="arrow" aria-hidden="true"></span></a>
             </article>
             <article class="service-row" role="listitem">
-              <span class="service-number">03</span><div><h3>Vidros e para-brisas</h3><p>Conserto de vidro elétrico e serviços relacionados a para-brisas nacionais e importados.</p><span class="service-tags">Vidro elétrico · Para-brisas</span></div><a href="#contato" class="service-action" data-service="vidro elétrico ou para-brisa" aria-label="Consultar sobre vidros e para-brisas"><span class="arrow" aria-hidden="true"></span></a>
+              <span class="service-number">03</span><div><h3>Vidros e para-brisas</h3><p>Conserto de vidro elétrico e serviços relacionados a para-brisas nacionais e importados.</p><span class="service-tags">Vidro elétrico · Para-brisas</span></div><a href="#contato" class="service-action" data-gallery="vidros" data-service="vidro elétrico ou para-brisa" aria-label="Consultar sobre vidros e para-brisas"><span class="arrow" aria-hidden="true"></span></a>
             </article>
             <article class="service-row" role="listitem">
-              <span class="service-number">04</span><div><h3>Insulfilm</h3><p>Aplicação de películas para veículos e ambientes residenciais.</p><span class="service-tags">Automotivo · Residencial</span></div><a href="#contato" class="service-action" data-service="insulfilm automotivo ou residencial" aria-label="Consultar sobre insulfilm"><span class="arrow" aria-hidden="true"></span></a>
+              <span class="service-number">04</span><div><h3>Insulfilm</h3><p>Aplicação de películas para veículos e ambientes residenciais.</p><span class="service-tags">Automotivo · Residencial</span></div><a href="#contato" class="service-action" data-gallery="insulfilm" data-service="insulfilm automotivo ou residencial" aria-label="Consultar sobre insulfilm"><span class="arrow" aria-hidden="true"></span></a>
             </article>
           </div>
         </div>
@@ -209,6 +209,16 @@
     <div class="wrap footer-bottom"><span>© <span data-current-year></span> Lanna’s Sound. Todos os direitos reservados.</span><a class="back-top" href="#topo">Voltar ao topo <span class="arrow arrow-up" aria-hidden="true"></span></a><span>Conteúdo sujeito à atualização.</span></div>
   </footer>
 
+  <div class="service-modal" id="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title" hidden>
+    <div class="service-modal-backdrop" data-modal-close></div>
+    <div class="service-modal-box">
+      <button type="button" class="service-modal-close" data-modal-close aria-label="Fechar">&times;</button>
+      <h3 id="service-modal-title"></h3>
+      <div class="service-carousel"><div class="service-modal-grid" data-modal-grid></div><button type="button" class="carousel-nav carousel-prev" data-carousel-prev aria-label="Foto anterior">&#8249;</button><button type="button" class="carousel-nav carousel-next" data-carousel-next aria-label="Próxima foto">&#8250;</button></div>
+      <div class="carousel-dots" data-modal-dots></div>
+      <button type="button" class="service-modal-cta" data-modal-cta>Solicitar orçamento pelo WhatsApp</button>
+    </div>
+  </div>
   <a class="whatsapp-float" href="#contato" data-contact-link aria-label="Falar com a Lanna’s Sound pelo WhatsApp">
     <span class="whatsapp-float-label">Fale conosco</span>
     <span class="whatsapp-float-icon" aria-hidden="true">

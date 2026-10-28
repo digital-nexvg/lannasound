@@ -57,19 +57,121 @@ document.querySelectorAll("[data-contact-link]").forEach((link) => {
   });
 });
 
+// Edit the photos of each service here: add or replace paths in "images".
+const serviceGalleries = {
+  som: { title: "Som e tecnologia", images: ["images/sobre.jpg", "images/carro2.jpg"] },
+  seguranca: { title: "Segurança e acessórios", images: ["images/engate1.jpg", "images/engate2.jpg"] },
+  vidros: { title: "Vidros e para-brisas", images: ["images/vidro1.jpg", "images/vidro2.jpg", "images/vidro3.jpg", "images/carro4.jpg"] },
+  insulfilm: { title: "Insulfilm", images: ["images/insulfilm1.jpg", "images/insulfilm2.jpg"] }
+};
+
+const serviceModal = document.querySelector("#service-modal");
+const modalTitle = serviceModal?.querySelector("#service-modal-title");
+const modalGrid = serviceModal?.querySelector("[data-modal-grid]");
+const modalCta = serviceModal?.querySelector("[data-modal-cta]");
+const modalDots = serviceModal?.querySelector("[data-modal-dots]");
+const SLIDE_INTERVAL = 2500;
+let modalOpener = null;
+let modalService = "";
+let slideIndex = 0;
+let slideTimer = null;
+let slideCount = 0;
+
+function goToSlide(index, smooth = true) {
+  if (!slideCount) return;
+  slideIndex = (index + slideCount) % slideCount;
+  modalGrid.scrollTo({ left: slideIndex * modalGrid.clientWidth, behavior: smooth ? "smooth" : "auto" });
+  updateDots();
+}
+
+function updateDots() {
+  modalDots.querySelectorAll("span").forEach((dot, i) => dot.classList.toggle("is-active", i === slideIndex));
+}
+
+function stopSlides() {
+  clearInterval(slideTimer);
+  slideTimer = null;
+}
+
+function startSlides() {
+  stopSlides();
+  if (slideCount > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    slideTimer = setInterval(() => goToSlide(slideIndex + 1), SLIDE_INTERVAL);
+  }
+}
+
+if (modalGrid) {
+  // Keeps the dots in sync when the user swipes with touch.
+  modalGrid.addEventListener("scroll", () => {
+    const index = Math.round(modalGrid.scrollLeft / modalGrid.clientWidth);
+    if (index !== slideIndex && index >= 0 && index < slideCount) {
+      slideIndex = index;
+      updateDots();
+    }
+  }, { passive: true });
+  ["touchstart", "pointerdown", "mouseenter"].forEach((type) => modalGrid.addEventListener(type, stopSlides, { passive: true }));
+  ["touchend", "touchcancel", "mouseleave"].forEach((type) => modalGrid.addEventListener(type, startSlides, { passive: true }));
+  serviceModal.querySelector("[data-carousel-prev]").addEventListener("click", () => { goToSlide(slideIndex - 1); startSlides(); });
+  serviceModal.querySelector("[data-carousel-next]").addEventListener("click", () => { goToSlide(slideIndex + 1); startSlides(); });
+}
+
+function closeServiceModal() {
+  if (!serviceModal || serviceModal.hidden) return;
+  stopSlides();
+  serviceModal.hidden = true;
+  document.body.classList.remove("modal-open");
+  modalOpener?.focus();
+}
+
+function openServiceModal(link) {
+  const gallery = serviceGalleries[link.dataset.gallery];
+  if (!serviceModal || !gallery) return false;
+  modalOpener = link;
+  modalService = link.dataset.service;
+  modalTitle.textContent = gallery.title;
+  modalGrid.replaceChildren(...gallery.images.map((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `${gallery.title} - Lanna’s Sound`;
+    img.loading = "lazy";
+    return img;
+  }));
+  slideCount = gallery.images.length;
+  modalDots.replaceChildren(...gallery.images.map((_, i) => {
+    const dot = document.createElement("span");
+    dot.addEventListener("click", () => { goToSlide(i); startSlides(); });
+    return dot;
+  }));
+  serviceModal.hidden = false;
+  goToSlide(0, false);
+  startSlides();
+  document.body.classList.add("modal-open");
+  serviceModal.querySelector(".service-modal-close").focus();
+  return true;
+}
+
+serviceModal?.querySelectorAll("[data-modal-close]").forEach((el) => el.addEventListener("click", closeServiceModal));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeServiceModal();
+});
+
+modalCta?.addEventListener("click", () => {
+  const url = getWhatsAppUrl(`Olá! Gostaria de solicitar informações e orçamento para ${modalService}.`);
+  if (!url) {
+    if (contactStatus) {
+      contactStatus.textContent = "O WhatsApp oficial ainda não foi configurado. Atualize o número no arquivo script.js.";
+    }
+    closeServiceModal();
+    document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  window.open(url, "_blank", "noopener,noreferrer");
+});
+
 document.querySelectorAll("[data-service]").forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    const service = link.dataset.service;
-    const url = getWhatsAppUrl(`Olá! Gostaria de solicitar informações e orçamento para ${service}.`);
-    if (!url) {
-      if (contactStatus) {
-        contactStatus.textContent = "O WhatsApp oficial ainda não foi configurado. Atualize o número no arquivo script.js.";
-      }
-      document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" });
-      return;
-    }
-    window.open(url, "_blank", "noopener,noreferrer");
+    openServiceModal(link);
   });
 });
 

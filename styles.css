@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color-scheme: light;
   --blue: #0832a5;
   --blue-bright: #1649d8;
@@ -307,4 +307,35 @@ h1 em, h2 em { color: #85a6ff; font-style: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* Service gallery modal */
+.service-action { cursor: pointer; }
+.service-modal[hidden] { display: none; }
+.service-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; }
+.service-modal-backdrop { position: absolute; inset: 0; background: rgba(6, 19, 47, .78); }
+.service-modal-box { position: relative; width: min(900px, 100%); max-height: 90vh; overflow-y: auto; background: var(--paper); padding: 32px; }
+.service-modal-box h3 { margin: 0 40px 20px 0; font-family: var(--display); color: var(--navy); font-size: 1.5rem; }
+.service-modal-close { position: absolute; top: 10px; right: 14px; border: 0; background: none; font-size: 32px; line-height: 1; color: var(--navy); cursor: pointer; }
+.service-carousel { position: relative; }
+.service-modal-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.service-modal-grid::-webkit-scrollbar { display: none; }
+.service-modal-grid img { flex: 0 0 100%; width: 100%; height: 60vh; max-height: 60vh; object-fit: contain; display: block; background: var(--soft); scroll-snap-align: center; scroll-snap-stop: always; }
+.carousel-nav { position: absolute; top: 50%; translate: 0 -50%; width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(6, 19, 47, .6); color: white; font-size: 26px; line-height: 1; cursor: pointer; }
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+.carousel-dots { position: relative; width: fit-content; margin: -26px auto 0; padding: 5px 9px; border-radius: 12px; background: rgba(6, 19, 47, .45); display: flex; justify-content: center; gap: 8px; }
+.carousel-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .7); cursor: pointer; transition: background .2s ease, width .2s ease; }
+.carousel-dots span.is-active { background: white; width: 22px; border-radius: 5px; }
+.service-modal-cta { display: block; margin: 20px auto 0; padding: 14px 24px; border: 0; background: var(--blue); color: white; font: 700 1rem var(--body); cursor: pointer; }
+.service-modal-cta:hover { background: var(--blue-bright); }
+body.modal-open { overflow: hidden; }
+
+@media (max-width: 640px) {
+  .service-modal { padding: 10px; }
+  .service-modal-box { padding: 14px; }
+  .service-modal-box h3 { margin: 0 36px 8px 0; font-size: 1.15rem; }
+  .service-modal-close { top: 4px; right: 8px; }
+  .service-modal-grid img { height: 45vh; max-height: 45vh; }
+  .service-modal-cta { margin-top: 12px; padding: 12px 18px; font-size: .95rem; }
 }
